@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'announcements.dart';
+import 'links.dart';
+import 'downloads.dart';
+import 'app_drawer.dart';
 
 void main() {
   runApp(const HRPortalApp());
@@ -13,14 +17,15 @@ class HRPortalApp extends StatelessWidget {
       title: 'HR Portal',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: const Color(0xFF001F54), // dark navy
+        primaryColor: const Color(0xFF001F54),
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF001F54), // dark navy
-          foregroundColor: Colors.white, // text/icons in app bar
+          backgroundColor: Color(0xFF001F54),
+          foregroundColor: Colors.white,
         ),
         textTheme: const TextTheme(
-          titleLarge: TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
+          titleLarge: TextStyle(
+              color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),
       home: const HomePage(),
@@ -34,116 +39,84 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Home"),
-          centerTitle: true,
-          backgroundColor: const Color(0xFF001F54), // dark navy
-          foregroundColor: Colors.white, // text/icons in app bar
-          iconTheme: const IconThemeData(color: Colors.white),
-    ),
-      // Hamburger Menu Drawer
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Color(0xFF001F54),
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context); // Just closes the drawer since you're already on home
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.announcement),
-              title: const Text('Announcements'),
-              onTap: () {
-                // TODO: Navigate or handle tap
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.link),
-              title: const Text('Links'),
-              onTap: () {
-                // TODO: Navigate or handle tap
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.download),
-              title: const Text('Downloads'),
-              onTap: () {
-                // TODO: Navigate or handle tap
-              },
-            ),
-          ],
-        ),
+      appBar: AppBar(
+        title: const Text("Home"),
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-
-
-    body: SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 20), // less top padding
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-              // Larger Image
-            Container(
-              width: double.infinity,
-              height: 280, // increased height
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/fppicture.png'),
-                  fit: BoxFit.contain,
+      drawer: const AppDrawer(), // <<-- replaced long drawer with this
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                width: double.infinity,
+                height: 280,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/fppicture.png'),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 10), // reduced spacing below image
-
-              // Title
-            const Text(
+              const SizedBox(height: 10),
+              const Text(
                 "HR Portal",
-              style: TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
+                style: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
-            ),
-            const SizedBox(height: 30),
-            // Buttons
-            buildNavButton("ANNOUNCEMENTS"),
-            buildNavButton("LINKS"),
-            buildNavButton("DOWNLOADS"),
-          ],
+              const SizedBox(height: 30),
+              buildNavButton(context, "ANNOUNCEMENTS"),
+              buildNavButton(context, "LINKS"),
+              buildNavButton(context, "DOWNLOADS"),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 
-  Widget buildNavButton(String label) {
+  Widget buildNavButton(BuildContext context, String label) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF001F54), // dark navy
+            backgroundColor: const Color(0xFF001F54),
             padding: const EdgeInsets.symmetric(vertical: 16),
             textStyle: const TextStyle(fontSize: 16, letterSpacing: 1.5),
           ),
           onPressed: () {
-            // Handle navigation or actions
+            Widget page;
+            switch (label.toUpperCase()) {
+              case 'ANNOUNCEMENTS':
+                page = const AnnouncementsPage();
+                break;
+              case 'LINKS':
+                page = const LinksPage();
+                break;
+              case 'DOWNLOADS':
+                page = const DownloadsPage();
+                break;
+              default:
+                return;
+            }
+
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, animation, __) => page,
+                transitionsBuilder: (_, animation, __, child) =>
+                    FadeTransition(opacity: animation, child: child),
+                transitionDuration: const Duration(milliseconds: 300),
+              ),
+            );
           },
           child: Text(
             label,
