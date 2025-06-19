@@ -40,6 +40,7 @@ dependencies:
   path_provider: ^2.0.14
   open_file: ^3.2.1
   http: ^0.13.6
+  device_info_plus: ^10.0.0
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,16 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/fppicture.png
+    - assets/pdfs/SuggestionForm.pdf
+    - assets/pdfs/DirectDepositForm.pdf
+    - assets/pdfs/AccidentClaimForm.pdf
+    - assets/pdfs/Associate_Handbook.pdf
+    - assets/pdfs/CriticalIllnessClaimForm.pdf
+    - assets/pdfs/FederalTaxForm.pdf
+    - assets/pdfs/jobTransferForm.pdf
+    - assets/pdfs/PayrollChangeNotice.pdf
+    - assets/pdfs/stateTaxForm.pdf
+    - assets/pdfs/WellnessClaimForm.pdf
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
