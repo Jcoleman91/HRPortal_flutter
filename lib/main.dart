@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      drawer: const AppDrawer(), // <<-- replaced long drawer with this
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),

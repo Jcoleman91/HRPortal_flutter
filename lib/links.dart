@@ -14,7 +14,6 @@ class LinksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List of buttons data: label + url
     final List<Map<String, String>> links = [
       {
         'label': 'ADP Workforce Pay Stub',
@@ -76,8 +75,8 @@ class LinksPage extends StatelessWidget {
             final link = links[index];
             return ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF001F54), // navy color
-                minimumSize: const Size.fromHeight(60), // big height button
+                backgroundColor: const Color(0xFF001F54), // navy
+                minimumSize: const Size.fromHeight(60),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
